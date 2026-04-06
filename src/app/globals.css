@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* ─── CSS Variables ─────────────────────────────────────────────────── */
+:root {
+  --gold: #C9A84C;
+  --gold-dim: #8a6f30;
+  --cream: #F5F0E8;
+  --ink: #0E0D0C;
+  --ink2: #1e1c19;
+  --ink3: #2e2b25;
+  --muted: #6b665c;
+  --border: rgba(201, 168, 76, 0.25);
+  --ff-heading: 'Cormorant Garamond', serif;
+  --ff-body: 'DM Sans', sans-serif;
+  --ff-mono: 'DM Mono', monospace;
+}
+
+
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--ff-body);
+  font-weight: 300;
+  background: var(--ink);
+  color: var(--cream);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.heading-font { font-family: var(--ff-heading); }
+.mono-font    { font-family: var(--ff-mono); }
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+/* ─── Custom cursor ─────────────────────────────────────────────────── */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+#cursor-follower {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: left 0.1s ease, top 0.1s ease, width 0.2s, height 0.2s;
+  opacity: 0.5;
+}
+
+/* ─── Hero helpers (pseudo-elements / mask — can't do in Tailwind) ─── */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.hero-radial-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 70%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+
+.hero-side-line {
+  background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.12) 30%, rgba(201,168,76,0.12) 70%, transparent);
+}
+
+.contact-radial-bg {
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 60%);
+}
+
+/* ─── CTA button (fill animation via ::before) ──────────────────────── */
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2.5rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--ff-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  cursor: none;
+}
+
+.cta-btn--ghost {
+  border-color: rgba(201,168,76,0.3);
+  color: var(--muted);
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold);
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-btn:hover::before { left: 0; }
+.cta-btn:hover         { color: var(--ink); }
+.cta-btn span          { position: relative; z-index: 1; }
+
+/* ─── Marquee ────────────────────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+  font-family: var(--ff-heading);
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Skill grid ─────────────────────────────────────────────────────── */
+.skill-item {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  transition: background 0.25s, color 0.25s;
+  cursor: none;
+}
+
+.skill-item:hover {
+  background: rgba(201, 168, 76, 0.06);
+  color: var(--gold);
+}
+
+/* ─── Project card ───────────────────────────────────────────────────── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+.project-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+  filter: brightness(0.6) saturate(0.7);
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.06);
+  filter: brightness(0.4) saturate(0.5);
+}
+
+.project-stack-text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s 0.1s, transform 0.3s 0.1s;
+}
+
+.project-card:hover .project-stack-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-arrow {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  width: 44px; height: 44px;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.project-card:hover .project-arrow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Experience ─────────────────────────────────────────────────────── */
+.exp-item {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+.exp-role-title { transition: color 0.3s; }
+.exp-item:hover .exp-role-title { color: var(--gold); }
+
+/* ─── Nav link underline ─────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  transition: color 0.3s;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--ff-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.nav-link:hover          { color: var(--cream); }
+.nav-link:hover::after   { width: 100%; }
+
+/* ─── Scroll hint animations ─────────────────────────────────────────── */
+@keyframes bobble {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-hint { animation: bobble 2.5s ease-in-out infinite; }
+
+@keyframes extendLine {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+.scroll-line { animation: extendLine 2.5s ease-in-out infinite; }
+
+/* ─── Contact email ──────────────────────────────────────────────────── */
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--ff-heading);
+  font-weight: 300;
+  color: var(--cream);
+  text-decoration: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.contact-email:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ─── Social links ───────────────────────────────────────────────────── */
+.social-link {
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+  cursor: none;
+}
+
+.social-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.social-link:hover        { color: var(--gold); }
+.social-link:hover::after { width: 100%; }
