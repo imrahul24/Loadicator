@@ -9,10 +9,20 @@ import Navbar from './components/Navbar';
 /* ─── Data ─────────────────────────────────────────────────────────── */
 
 const skills = [
-  'Python', 'Django', 'React / Next.js', 'Node.js',
-  'TypeScript', 'Azure', 'AWS', 'Docker',
-  'Celery', 'PostgreSQL', 'Electron', 'Webflow',
-  'WordPress', 'REST APIs',
+  { name: 'Python',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'Django',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg' },
+  { name: 'React',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Next.js',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  { name: 'Node.js',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { name: 'Azure',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
+  { name: 'AWS',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
+  { name: 'Docker',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  { name: 'Electron',   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg' },
+  { name: 'WordPress',  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg' },
+  { name: 'Celery',     icon: null },
+  { name: 'REST APIs',  icon: null },
 ];
 
 const projects = [
@@ -327,14 +337,37 @@ export default function Home() {
 
           <Reveal delay={0.15}>
             <SectionLabel>Tech Stack</SectionLabel>
-            <div className="border border-(--border) grid grid-cols-2">
-              {skills.map((skill, i) => (
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              {skills.map((skill) => (
                 <div
-                  key={skill}
-                  className={`skill-item text-[0.85rem] sm:text-[0.9rem] ${i % 2 === 0 ? 'border-r border-(--border)' : ''} ${i < skills.length - 2 ? 'border-b border-(--border)' : ''}`}
+                  key={skill.name}
+                  className="skill-card group flex flex-col items-center justify-center gap-2.5 p-4 border border-(--border) transition-all duration-300 hover:border-gold hover:bg-[rgba(201,168,76,0.05)]"
                 >
-                  <div className="w-1.25 h-1.25 rounded-full bg-gold shrink-0" />
-                  {skill}
+                  {skill.icon ? (
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      width={36}
+                      height={36}
+                      className="w-8 h-8 sm:w-9 sm:h-9 object-contain transition-all duration-300"
+                      style={{
+                        filter: skill.name === 'Django' || skill.name === 'Next.js' || skill.name === 'WordPress'
+                          ? 'invert(1) grayscale(1) opacity(0.6)'
+                          : 'grayscale(1) opacity(0.6)',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.filter = skill.name === 'Django' || skill.name === 'Next.js' || skill.name === 'WordPress' ? 'invert(1) grayscale(0) opacity(1)' : 'grayscale(0) opacity(1)')}
+                      onMouseLeave={e => (e.currentTarget.style.filter = skill.name === 'Django' || skill.name === 'Next.js' || skill.name === 'WordPress' ? 'invert(1) grayscale(1) opacity(0.6)' : 'grayscale(1) opacity(0.6)')}
+                    />
+                  ) : (
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
+                      <span className="text-gold text-xl font-light" style={{ fontFamily: 'var(--ff-mono)' }}>
+                        {skill.name === 'Celery' ? '⚙' : '⟁'}
+                      </span>
+                    </div>
+                  )}
+                  <span className="font-mono text-[0.62rem] sm:text-[0.68rem] tracking-[0.1em] uppercase text-(--muted) group-hover:text-(--cream) transition-colors duration-300 text-center leading-tight">
+                    {skill.name}
+                  </span>
                 </div>
               ))}
             </div>
