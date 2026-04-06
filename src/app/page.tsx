@@ -599,7 +599,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.3}>
             <div className="flex items-center justify-center gap-6 sm:gap-10 mb-14 sm:mb-20">
-              <a href="https://www.linkedin.com/in/rahulyadav" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn ↗</a>
+              <a href="https://www.linkedin.com/in/rahulyadav0224" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn ↗</a>
               <span className="w-px h-5 bg-(--border) inline-block" />
               <a href="https://wa.me/917350732543" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp ↗</a>
             </div>
